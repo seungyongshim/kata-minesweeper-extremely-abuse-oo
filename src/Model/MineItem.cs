@@ -5,20 +5,20 @@ namespace SeungyongShim.Model
 
     public class MineItem : IGameObject, IClickable<IResult>, IRenderable
     {
-        public MineItem(int x, int y, MineItemRepository mineItemRepository)
+        public MineItem(int x, int y)
         {
             X = x;
             Y = y;
 
-            MineItemRepository = mineItemRepository;
         }
 
         public int X { get; }
         public int Y { get; }
-        public MineItemRepository MineItemRepository { get; }
 
         private MineItemImpl MineItemImpl { get; } = new MineItemCovered();
 
         public async Task<IResult> Click() => await Task.FromResult(new Result());
+
+        public override string ToString() => MineItemImpl.ToString();
     }
 }

@@ -1,30 +1,32 @@
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using SeungyongShim.Core;
-using SeungyongShim.Model;
-
 namespace SeungyongShim.Service
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Threading.Tasks;
+    using SeungyongShim.Core;
+    using SeungyongShim.Model;
+
     public class GameService
     {
-        public GameService(int width, int height)
+        public GameService(GameSize gameSize, IRenderer renderer, MineItemRepository mineItemRepository)
         {
-            Width = width;
-            Height = height;
+            GameSize = gameSize;
+            ConsoleRenderer = renderer;
+            MineItemRepository = mineItemRepository;
 
-            MineItems = new Collection<MineItem>();
-
-
+            for (int j = 0; j < GameSize.Height; j++)
+            {
+                for (int i = 0; i < GameSize.Width; i++)
+                {
+                    mineItemRepository.Add(new MineItem(i, j));
+                }
+            }
         }
 
-        private ICollection<MineItem> MineItems { get; }
+        public GameSize GameSize { get; }
+        public IRenderer ConsoleRenderer { get; }
+        public MineItemRepository MineItemRepository { get; }
 
-        public int Width { get; }
-        public int Height { get; }
-
-        public void Render(IRenderer consoleRenderer)
-        {
-
-        }
+        public async Task Render() => await ConsoleRenderer.Render(MineItemRepository.ToString());
     }
 }
