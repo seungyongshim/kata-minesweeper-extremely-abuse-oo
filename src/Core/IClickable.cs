@@ -2,8 +2,8 @@ using System.Threading.Tasks;
 
 namespace SeungyongShim.Core
 {
-    public interface IClickable : IGameObject
+    public interface IClickable<T> : IGameObject
     {
-        Task Click();
+        Task<T> Click();
     }
 }
