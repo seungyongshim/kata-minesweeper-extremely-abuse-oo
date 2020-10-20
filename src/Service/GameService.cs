@@ -1,7 +1,5 @@
 namespace SeungyongShim.Service
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Threading.Tasks;
     using SeungyongShim.Core;
@@ -16,7 +14,7 @@ namespace SeungyongShim.Service
             Renderer = renderer;
             MineItemRepository = mineItemRepository;
 
-            
+
         }
 
         public async Task Initialize()

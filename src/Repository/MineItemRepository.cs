@@ -1,8 +1,6 @@
 namespace SeungyongShim.Repository
 {
-    using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Threading.Tasks;
     using SeungyongShim.Model;
 
@@ -20,7 +18,7 @@ namespace SeungyongShim.Repository
 
         public async Task Add(IEnumerable<MineItem> mineItems)
         {
-            foreach(var x in mineItems)
+            foreach (var x in mineItems)
             {
                 await Add(x);
             }

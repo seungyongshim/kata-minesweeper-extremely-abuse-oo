@@ -8,7 +8,7 @@ namespace ConsoleApp
     using SeungyongShim.Core;
     using SeungyongShim.Service;
 
-    class ConsoleRenderer : IRenderer
+    internal class ConsoleRenderer : IRenderer
     {
         public ConsoleRenderer(GameSize gameSize)
         {
@@ -24,7 +24,7 @@ namespace ConsoleApp
                                                                                    .Append(' ')));
 
             var joinBuffer = string.Join('\n', buffer);
-                                          
+
 
             Console.SetCursorPosition(0, 0);
             await Console.Out.WriteLineAsync(joinBuffer);
@@ -36,7 +36,7 @@ namespace ConsoleApp
                 {
                     yield return v.Skip(GameSize.Width * i).Take(GameSize.Width);
                 }
-                
+
             }
         }
     }

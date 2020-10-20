@@ -9,7 +9,10 @@ namespace ConsoleApp
 
     internal class GameHostedService : BackgroundService
     {
-        public GameHostedService(GameService gameService) => GameService = gameService;
+        public GameHostedService(GameService gameService)
+        {
+            GameService = gameService;
+        }
 
         public GameService GameService { get; }
         public IRenderer ConsoleRenderer { get; set; }
@@ -18,7 +21,7 @@ namespace ConsoleApp
         {
             await GameService.Initialize();
 
-            while(!stoppingToken.IsCancellationRequested)
+            while (!stoppingToken.IsCancellationRequested)
             {
                 await GameService.Render();
                 await Console.In.ReadLineAsync();
