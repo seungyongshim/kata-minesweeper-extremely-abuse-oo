@@ -13,8 +13,6 @@ namespace SeungyongShim.Service
             GameSize = gameSize;
             Renderer = renderer;
             MineItemRepository = mineItemRepository;
-
-
         }
 
         public async Task Initialize()
