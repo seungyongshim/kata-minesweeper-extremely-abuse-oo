@@ -18,7 +18,9 @@ namespace SeungyongShim.Model
         private MineItemImpl MineItemImpl { get; set; } = MineItemImpl.Make();
         public async Task Click() => await MineItemImpl.Accept(new ClickVisitor());
         public async Task RightClick() => await MineItemImpl.Accept(new RightClickVisitor());
-        public async Task SetBombs() => await MineItemImpl.Accept(new BombCreateVisitor());
+        public async Task SetBomb() => await MineItemImpl.Accept(new BombCreateVisitor());
         public override string ToString() => MineItemImpl.ToString();
+
+        public async Task CountAdd() => await MineItemImpl.Accept(new CountAddVisitor());
     }
 }

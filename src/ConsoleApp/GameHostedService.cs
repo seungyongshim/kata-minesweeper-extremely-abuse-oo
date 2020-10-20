@@ -20,6 +20,8 @@ namespace ConsoleApp
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             await GameService.Initialize();
+            await GameService.SetBombs();
+            await GameService.GenerateNearCount();
 
             while (!stoppingToken.IsCancellationRequested)
             {

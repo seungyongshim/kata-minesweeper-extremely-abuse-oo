@@ -5,10 +5,17 @@ namespace SeungyongShim.Model
 
     internal class MineItemImpl 
     {
-        protected MineItemImpl Inner { get; set; }
         virtual public bool IsBomb => Inner?.IsBomb ?? false;
         virtual public bool IsCovered => Inner?.IsCovered ?? false;
         virtual public bool IsFlaged => Inner?.IsFlaged ?? false;
+        protected MineItemImpl Inner { get; set; }
+        public static MineItemImpl Make() => new MineItemImpl()
+        {
+            Inner = new MineItemImplCovered()
+            {
+                Inner = new MineItemImpl0()
+            }
+        };
 
         public async Task Accept(IVisitor<MineItemImpl> visitor) => await AcceptInner(visitor);
         public async Task<MineItemImpl> Make<T>() where T : MineItemImpl, new()
@@ -20,15 +27,6 @@ namespace SeungyongShim.Model
                 Inner = Inner
             };
         }
-
-        public static MineItemImpl Make() => new MineItemImpl()
-        {
-            Inner = new MineItemImplCovered()
-            {
-                Inner = new MineItemImpl0()
-            }
-        };
-
         public override string ToString() => Inner.ToString();
 
         protected async Task AcceptInner(IVisitor<MineItemImpl> visitor)
@@ -39,7 +37,7 @@ namespace SeungyongShim.Model
 
             if (!complete)
             {
-                if (Inner == null)
+                if (Inner != null)
                 {
                     await Inner.AcceptInner(visitor);
                 }

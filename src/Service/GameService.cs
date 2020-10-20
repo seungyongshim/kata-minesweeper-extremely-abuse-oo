@@ -32,27 +32,41 @@ namespace SeungyongShim.Service
             await mineItem.Click();
         }
 
+        public async Task GenerateNearCount()
+        {
+            foreach(var item in await MineItemRepository.GetBombs())
+            {
+                foreach(var x in MineItemRepository.Nears(item).Where(x => x.IsSome).Bind(x => x))
+                {
+                    x.CountAdd();
+                }
+            }
+        }
+
         public async Task Initialize()
         {
-            var rand = new Random();
             var mineItems = from y in Enumerable.Range(0, GameSize.Height)
                             from x in Enumerable.Range(0, GameSize.Width)
                             select new MineItem(x, y);
 
             await MineItemRepository.Add(mineItems);
+        }
 
-            for (var i = 0; i < 5; i++)
+        public async Task SetBombs(int count = 5)
+        {
+            var rand = new Random();
+            for (var i = 0; i < count; i++)
             {
-                var item = await MineItemRepository.Get(rand.Next(GameSize.Width), rand.Next(GameSize.Height));
+                var item = await MineItemRepository.Get(rand.Next(GameSize.Width),
+                                                        rand.Next(GameSize.Height));
                 if (item.IsBomb)
                 {
                     i--;
                     continue;
                 }
-                item.SetBombs();
+                await item.SetBomb();
             }
         }
-            
 
         public async Task Render() => await Renderer.Render(MineItemRepository.ToString());
     }
