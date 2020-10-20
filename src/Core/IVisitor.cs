@@ -4,6 +4,6 @@ namespace SeungyongShim.Core
 
     public interface IVisitor<T>
     {
-        Task<T> Visit(T obj);
+        Task<(T, bool)> Visit(T obj);
     }
 }

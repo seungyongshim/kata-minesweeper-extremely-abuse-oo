@@ -5,6 +5,7 @@ namespace SeungyongShim.Model
 
     internal class MineItemImplCovered : MineItemImpl
     {
+        public override bool IsCovered => true;
         public override string ToString() => ".";
     }
 }

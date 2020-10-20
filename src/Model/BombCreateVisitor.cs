@@ -3,11 +3,11 @@ namespace SeungyongShim.Model
     using System.Threading.Tasks;
     using SeungyongShim.Core;
 
-    internal class ClickVisitor : IVisitor<MineItemImpl>
+    internal class BombCreateVisitor : IVisitor<MineItemImpl>
     {
         public async Task<(MineItemImpl, bool)> Visit(MineItemImpl o) => o switch
         {
-            MineItemImplCovered x => (await x.Make<MineItemImplUncovered>(), true),
+            MineItemImpl0 x => (await x.Make<MineItemImplBomb>(), true),
             _ => (null, false),
         };
     }

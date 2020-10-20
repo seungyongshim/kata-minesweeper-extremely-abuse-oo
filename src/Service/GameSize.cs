@@ -8,7 +8,7 @@ namespace SeungyongShim.Service
             Height = height;
         }
 
-        public int Width { get; set; }
         public int Height { get; }
+        public int Width { get;  }
     }
 }

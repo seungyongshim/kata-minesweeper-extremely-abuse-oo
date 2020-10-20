@@ -3,26 +3,47 @@ namespace SeungyongShim.Model
     using System.Threading.Tasks;
     using SeungyongShim.Core;
 
-    internal abstract class MineItemImpl : IVisitable<MineItemImpl>
+    internal class MineItemImpl 
     {
         protected MineItemImpl Inner { get; set; }
+        virtual public bool IsBomb => Inner?.IsBomb ?? false;
+        virtual public bool IsCovered => Inner?.IsCovered ?? false;
+        virtual public bool IsFlaged => Inner?.IsFlaged ?? false;
 
         public async Task Accept(IVisitor<MineItemImpl> visitor) => await AcceptInner(visitor);
-        public override string ToString() => Inner.ToString();
-
-        protected async Task<MineItemImpl> AcceptInner(IVisitor<MineItemImpl> visitor)
+        public async Task<MineItemImpl> Make<T>() where T : MineItemImpl, new()
         {
-            return Inner = await visitor.Visit(this) ??
-                           await NextVisit();
+            await Task.CompletedTask;
 
-            async Task<MineItemImpl> NextVisit() => await Inner.AcceptInner(visitor);
-        }
-        public MineItemImpl Make<T>() where T : MineItemImpl, new()
-        {
             return new T()
             {
                 Inner = Inner
             };
+        }
+
+        public static MineItemImpl Make() => new MineItemImpl()
+        {
+            Inner = new MineItemImplCovered()
+            {
+                Inner = new MineItemImpl0()
+            }
+        };
+
+        public override string ToString() => Inner.ToString();
+
+        protected async Task AcceptInner(IVisitor<MineItemImpl> visitor)
+        {
+            (var inner, var complete) = await visitor.Visit(Inner);
+
+            Inner = inner ?? Inner;
+
+            if (!complete)
+            {
+                if (Inner == null)
+                {
+                    await Inner.AcceptInner(visitor);
+                }
+            }
         }
     }
 }
