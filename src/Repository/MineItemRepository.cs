@@ -1,5 +1,6 @@
 namespace SeungyongShim.Repository
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using SeungyongShim.Model;
@@ -23,5 +24,8 @@ namespace SeungyongShim.Repository
                 await Add(x);
             }
         }
+
+        public async Task<MineItem> Get(int x, int y) => await Task.FromResult(MineItems[(x, y)]);
+
     }
 }

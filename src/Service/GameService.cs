@@ -29,5 +29,11 @@ namespace SeungyongShim.Service
         public MineItemRepository MineItemRepository { get; }
 
         public async Task Render() => await Renderer.Render(MineItemRepository.ToString());
+
+        public async Task Click()
+        {
+            var mineItem = await MineItemRepository.Get(0, 0);
+            await mineItem.Click();
+        }
     }
 }

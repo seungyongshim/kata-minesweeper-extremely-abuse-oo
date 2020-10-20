@@ -25,6 +25,7 @@ namespace ConsoleApp
             {
                 await GameService.Render();
                 await Console.In.ReadLineAsync();
+                await GameService.Click();
             }
         }
     }

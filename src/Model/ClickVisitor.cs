@@ -11,7 +11,7 @@ namespace SeungyongShim.Model
 
         public async Task<MineItemImpl> Visit(MineItemImpl obj) => obj switch
         {
-            MineItemImplCovered x => new MineItemImplUncovered(x),
+            MineItemImplCovered x => x.Make<MineItemImplUncovered>(),
             _ => await Task.FromResult<MineItemImpl>(null),
         };
     }

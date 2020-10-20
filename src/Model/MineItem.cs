@@ -14,16 +14,16 @@ namespace SeungyongShim.Model
         public int X { get; }
         public int Y { get; }
 
-        private MineItemImpl MineItemImpl { get; } = new MineItemImplCovered(new MineItemImplEmpty());
+        private MineItemImpl MineItemImpl { get; init; } = new MineItemImplCovered(new MineItemImplEmpty());
 
-        public async Task<IResult> Click()
+        public async Task Click()
         {
             var clickVisitor = new ClickVisitor();
             await MineItemImpl.Accept(clickVisitor);
-
-            return null;
         }
 
         public override string ToString() => MineItemImpl.ToString();
+
+        
     }
 }
