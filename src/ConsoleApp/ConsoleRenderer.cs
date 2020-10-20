@@ -19,12 +19,25 @@ namespace ConsoleApp
 
         public async Task Render(string value)
         {
-            var buffer = string.Join('\n', value.Split(null, GameSize.Width)
-                                                .Select(x => x.Select(a => a + " ")));
+            var buffer = SplitRenderWidth(value).Select(x => x.Aggregate(new StringBuilder(),
+                                                                        (c, a) => c.Append(a)
+                                                                                   .Append(' ')));
+
+            var joinBuffer = string.Join('\n', buffer);
+                                          
 
             Console.SetCursorPosition(0, 0);
-            await Console.Out.WriteAsync(buffer);
+            await Console.Out.WriteLineAsync(joinBuffer);
             await Console.Out.FlushAsync();
+
+            IEnumerable<IEnumerable<char>> SplitRenderWidth(string v)
+            {
+                for (var i = 0; i < GameSize.Height; i++)
+                {
+                    yield return v.Skip(GameSize.Width * i).Take(GameSize.Width);
+                }
+                
+            }
         }
     }
 }

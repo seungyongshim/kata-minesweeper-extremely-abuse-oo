@@ -5,6 +5,7 @@ namespace ConsoleApp
     using Microsoft.Extensions.Hosting;
     using SeungyongShim.Core;
     using SeungyongShim.Model;
+    using SeungyongShim.Repository;
     using SeungyongShim.Service;
 
     internal class Program

@@ -2,14 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>SeungyongShim.Service</AssemblyName>
-    <RootNamespace>SeungyongShim.Service</RootNamespace>
+    <AssemblyName>SeungyongShim.Repository</AssemblyName>
+    <RootNamespace>SeungyongShim.Repository</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
-    <ProjectReference Include="..\Repository\Repository.csproj" />
   </ItemGroup>
 
 </Project>

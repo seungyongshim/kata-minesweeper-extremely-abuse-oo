@@ -1,7 +1,7 @@
-using System.Threading.Tasks;
-
 namespace SeungyongShim.Model
 {
+    using System.Threading.Tasks;
+
     internal class MineItemUncovered : MineItemImpl
     {
         public MineItemUncovered(MineItemImpl inner) => Inner = inner;
